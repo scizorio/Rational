@@ -6,25 +6,39 @@ class Rational {
         Illegal (String reason) { 
             this.reason = reason; 
         } 
-    } 
+    }
 
+    /***
+     * This is a traditional constructor without any parameter
+     */
     Rational() {
         // to be completed
     }
 
+    /***
+     * This is the constructor which receive the values of numerator and denominator
+     * @param numerator the value of the numerator
+     * @param denominator the value of the denominator
+     * @throws Illegal will throw Illegal when wrong inputs are given
+     */
     Rational(long numerator, long denominator) throws Illegal { 
         // to be completed
-    } 
+    }
 
-    // find the reduce form 
+    /***
+     * find the simplest form of a Rational number
+     * E.g., 2/4 ==> 1/2, 4/6 ==> 2/3
+     */
     private void simplestForm() { 
         long computeGCD; 
         computeGCD = GCD(Math.abs(numerator), denominator); 
         numerator /= computeGCD; 
         denominator /= computeGCD; 
-    } 
+    }
 
-    // find the greatest common denominator 
+    /***
+     * find the greatest common denominator
+     */
     private long GCD(long a, long b) { 
         if (a%b ==0) return b; 
         else return GCD(b,a%b); 
