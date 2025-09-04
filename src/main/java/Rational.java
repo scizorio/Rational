@@ -13,6 +13,8 @@ class Rational {
      */
     Rational() {
         // to be completed
+        this.numerator = 0;
+        this.denominator = 1;
     }
 
     /***
@@ -23,6 +25,12 @@ class Rational {
      */
     Rational(long numerator, long denominator) throws Illegal { 
         // to be completed
+        if (denominator == 0) {
+            throw new Illegal("Denominator cannot be zero.");
+        }
+        this.numerator = numerator;
+        this.denominator = denominator;
+        simplestForm();
     }
 
     /***
@@ -60,6 +68,9 @@ class Rational {
      */
     public void subtract(Rational x) {
         // to be completed
+        numerator = (this.numerator * x.denominator) - (x.numerator * this.denominator);
+        denominator = this.denominator * x.denominator;
+        simplestForm();
     }
 
     /***
@@ -68,6 +79,9 @@ class Rational {
      */
     public void multiply(Rational x) { 
         // to be completed
+        this.numerator *= x.numerator;
+        this.denominator *= x.denominator;
+        simplestForm();
     }
 
     /***
@@ -76,6 +90,9 @@ class Rational {
      */
     public void divide(Rational x) {
         // to be completed
+        this.numerator *= x.denominator;
+        this.denominator *= x.numerator;
+        simplestForm();
     }
 
     /***
@@ -85,7 +102,13 @@ class Rational {
      */
     public boolean equals(Object x) {
         // to be completed
-        return true; // TODO: This needs to be modified.
+        if (this == x) return true;
+        if (x == null || getClass() != x.getClass()) return false;
+
+        Rational other = (Rational) x;
+
+        // Because fractions are always in simplest form, a direct comparison is sufficient.
+        return this.numerator == other.numerator && this.denominator == other.denominator;
     }
 
     /***
@@ -96,7 +119,19 @@ class Rational {
      */
     public long compareTo(Object x) {
         // to be completed
-        return -1; // TODO: this needs to be modified.
+        Rational other = (Rational) x;
+
+        // Use cross-multiplication to avoid floating-point inaccuracies
+        long thisValue = this.numerator * other.denominator;
+        long otherValue = other.numerator * this.denominator;
+
+        if (thisValue < otherValue) {
+            return -1;
+        } else if (thisValue > otherValue) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     /***
@@ -105,7 +140,7 @@ class Rational {
      */
     public String toString() { 
         // to be completed
-        return ""; // TODO: This needs to be modified.
+        return this.numerator + "/" + this.denominator;
     }
 
     public static void main(String[] args) {
